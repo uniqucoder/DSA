@@ -15,21 +15,14 @@ class Bike
 class Honda:virtual public Bike
 {
     public:
-    void getDetails()
-    {
-        cout<<"Iam in Honda"<<endl;
-    }
-   
+ 
 
 };
 
 class Hero : virtual public Bike
 {
     public:
-    void getDetails()
-    {
-        cout<<"Iam in Hero"<<endl;
-    }
+   
     
 };
 
