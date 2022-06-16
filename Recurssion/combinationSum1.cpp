@@ -57,19 +57,17 @@ void solve(vector<int>&candidates , int target, vector<vector<int>>&output , vec
     temp.pop_back();
 }
 
-set<vector<int >> combination(vector<int>&candidates , int target)
+vector< vector<int>  > combination(vector<int>&candidates , int target)
 {
-   
-
     vector<int> temp;
 
     // Using Exclude Include
-    //  vector< vector<int > >output;
-    // solve(candidates,target,output,temp,0);
+     vector< vector<int > >output;
+    solve(candidates,target,output,temp,0);
 
     // Using for loop
-    set< vector<int > >output;
-    solve_1(candidates,target,output,temp,0);
+    // set< vector<int > >output;
+    // solve_1(candidates,target,output,temp,0);
 
     return output;
 
@@ -88,34 +86,33 @@ int main()
 {
     
 
-    vector<int> candidates={1,2,3,4};
-    int target = 4;
+    vector<int> candidates={5,-2,0,-5,2};
+    int target = 0;
     // For exclude and include
-    // vector<vector<int>> ans;
+    vector<vector<int>> ans;
 
-    // ans = combination(candidates,target);
+    ans = combination(candidates,target);
 
-    // for(int i=0;i<ans.size();i++)
-    // {
-    //     cout<<"[";
-    //     for(int j=0; j<ans[i].size(); j++)
-    //     {
-    //         cout<<ans[i][j]<<"";
-    //     }
-    //     cout<<"]";
+    for(int i=0;i<ans.size();i++)
+    {
+        cout<<"[";
+        for(int j=0; j<ans[i].size(); j++)
+        {
+            cout<<ans[i][j]<<"";
+        }
+        cout<<"]";
 
-    //     cout<<" ";
+        cout<<" ";
 
-        
-    // }
+    }
 
     // For using for loop
 
-    set<vector<int>> ans;
-    ans = combination(candidates,target);
+    // set<vector<int>> ans;
+    // ans = combination(candidates,target);
 
-    for (auto it = ans.begin(); it != ans.end(); it++)
-    {
-        print1(*it);
-    }
+    // for (auto it = ans.begin(); it != ans.end(); it++)
+    // {
+    //     print1(*it);
+    // }
 }

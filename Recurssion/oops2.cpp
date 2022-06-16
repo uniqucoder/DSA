@@ -20,7 +20,7 @@ class Human
     }
 };
 
-class female
+class female : public Human
 {
 
 };
