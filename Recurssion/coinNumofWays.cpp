@@ -19,14 +19,15 @@ int solve(int *coins, int n,int target, int index)
     for(int i=index; i< n;i++ )
     {
         ways +=solve(coins,n,target-coins[i],i);
+        
     }
     return ways;
 }
 int main()
 {
-    int coins[]={1,2};
-    int n=2;
-    int target=4 ;
+    int coins[]={1,2,3,4};
+    int n=4;
+    int target=5 ;
 
 
     cout<<solve(coins, n,target, 0);
