@@ -99,7 +99,7 @@ void deleteByValue(Node* &head,Node* &tail, int target, int pos)
 
         delete temp;
     }
-    else
+        else
     {
         Node* prev = head;
         Node* temp = head;
