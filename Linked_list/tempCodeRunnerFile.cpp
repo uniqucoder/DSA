@@ -1,4 +1,5 @@
-insertHead(head,9);
-    insertHead(head,8);
-    insertHead(head,7);
-    insertHead(head,6);
+ // traverse(head);
+    // cout<<endl;
+    // head = reverseInK(head,3);
+
+    // traverse(head);
