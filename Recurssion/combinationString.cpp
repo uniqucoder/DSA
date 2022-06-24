@@ -2,12 +2,16 @@
     CombinatioN Of digits with space
 
     input = 123
-    o/p: 1_23, 1_2_3,12_3,123,
+    o/p: 123
+        12_3
+        1_23
+        1_2_3
 
 
 
 
 */
+
 #include<bits/stdc++.h>
 using namespace std;
 

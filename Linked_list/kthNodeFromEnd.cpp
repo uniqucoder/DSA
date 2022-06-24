@@ -138,8 +138,10 @@ int main()
 
     insertAttail(tail,2);
     insertAttail(tail,3);
+    Node * temp1 = tail;
     insertAttail(tail,4);
     insertAttail(tail,5);
+   
     insertAttail(tail,6);
     Node* temp = tail;
     insertAttail(tail,7);
@@ -152,7 +154,7 @@ int main()
 
     // cout<<detectLoop(head)<<endl;
 
-    // traverse(head);
+    traverse(head);
 
     cout<<deleteLoop(head)<<endl;
 
