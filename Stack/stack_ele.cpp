@@ -1,44 +1,97 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int solve(stack<int>&s)
+
+
+
+
+void printMiddle(stack<int>& st, int totalSize) {
+
+   if(st.size() == 0)
+   {
+        cout<<"Stack is Empty"<<endl;
+        return;
+   }
+
+   if((totalSize) == st.size())
+   {
+        cout<<"Middle element is "<<st.top()<<endl;
+
+        return;
+   }
+
+   int topEle = st.top();
+
+   st.pop();
+   printMiddle(st,totalSize);
+
+   st.push(topEle);
+
+}
+
+void insertAtBottom(stack<int> &s, int topEle)
 {
-    int *ptr = 23;
+    // base case
+    if(s.empty())
+    {
+        s.push(topEle);
+        return;
+    }
+
+    int ele = s.top();
+    s.pop();
+    insertAtBottom(s,topEle);
+
+    s.push(ele);
+}
+
+void reverseStack( stack<int> &s)
+{
+    //base case
+    if(s.empty())
+    {
+        return;
+    }
+    
+    int topEle = s.top();
+    s.pop();
+    reverseStack(s);
+
+    insertAtBottom(s,topEle);
+
+}
+
+
+void printStack(stack <int> s)
+{
+    while(!s.empty())
+    {
+        cout<<s.top()<<" ";
+        s.pop();
+    }
 }
 
 int main()
 {
     stack<int> s;
 
-    int n=5;
+    s.push(1);
+    s.push(2);
+    s.push(3);
+    s.push(4);
+    s.push(5);
 
-    while(n--)
-    {
-        int a ;
-        cin>>a;
-        s.push(a);
-    }
+    int size = s.size();
 
-
-    while(!s.empty())
-    {
-        cout<<s.top()<<endl;
-        s.pop();
-    }
-
-    int size = n /2 +1;
-
-    while(size--)
-    {
-        s.pop();
-
-    }
-    cout<<s.top()<<endl;
+    int n = (size /2) + 1;
 
 
-    // recurssion func
+    // printMiddle(s, n);
+    printStack(s);
+    cout<<endl;
+    reverseStack(s);
 
-    cout<< solve(s);
+    printStack(s);
 
     return 0;
 
