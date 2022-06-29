@@ -5,25 +5,25 @@ using namespace std;
 
 
 
-void printMiddle(stack<int>& st, int totalSize) {
+int printMiddle(stack<int>& st, int totalSize) {
 
    if(st.size() == 0)
    {
         cout<<"Stack is Empty"<<endl;
-        return;
+        return -1;
    }
 
    if((totalSize) == st.size())
    {
         cout<<"Middle element is "<<st.top()<<endl;
 
-        return;
+        return st.top();
    }
 
    int topEle = st.top();
 
    st.pop();
-   printMiddle(st,totalSize);
+   return printMiddle(st,totalSize);
 
    st.push(topEle);
 
@@ -86,12 +86,12 @@ int main()
     int n = (size /2) + 1;
 
 
-    // printMiddle(s, n);
-    printStack(s);
-    cout<<endl;
-    reverseStack(s);
+    cout<<printMiddle(s, n);
+    // printStack(s);
+    // cout<<endl;
+    // reverseStack(s);
 
-    printStack(s);
+    // cout<<printStack(s);
 
     return 0;
 
