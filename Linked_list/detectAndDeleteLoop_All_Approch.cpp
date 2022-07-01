@@ -58,6 +58,7 @@ Node* detectLoop1(Node* &head)
         else
         {
             cout<<"Loop detected "<<endl;
+
             return temp;
         }
     }
@@ -93,21 +94,18 @@ Node* deleteLoop(Node* & head)
 
     Node* temp = beginning;
 
-    Node* slow = head;
     while(temp != NULL && temp -> next != NULL )
     {
             slow = slow -> next;
 
 
-            fast = fast -> fast;
+            fast = fast -> next->next;
     }
 
 
 
     Node* beginning = NULL;
-    {
-        
-    }
+    
 }
 
 int main()
@@ -130,8 +128,10 @@ int main()
     insertAttail(tail,9);
     tail ->next = temp;
 
-    cout<<detectLoop1(head);
 
+    cout<<detectLoop1(head);
+    // Node* demo = detectLoop1(head);
+    // cout<<demo->data;
     return 0;
 
 }
