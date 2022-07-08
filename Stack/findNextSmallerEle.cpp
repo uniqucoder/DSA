@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
- vector<int> get_next(vector<int> &arr,int n){
+ vector<int> get_nextSmaller(vector<int> &arr,int n){
         stack<int> s;
         s.push(-1);
         vector<int> next(n);
@@ -21,7 +21,7 @@ int main()
     vector<int> arr = {2,1,4,3};
     int n =4;
 
-    vector<int> a = get_next(arr,n);
+    vector<int> a = get_nextSmaller(arr,n);
 
     for(auto &x : a)
     {
