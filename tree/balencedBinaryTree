@@ -1,0 +1,73 @@
+Apporch 1:
+class Solution {
+public:
+    int height(TreeNode* root)
+    {
+        if(root == NULL)
+            return 0;
+        
+        return max(height(root ->left),height(root ->right))+1;
+    }
+    bool isBalanced(TreeNode* root) {
+        
+        if(root == NULL)
+            return true;
+        
+        bool leftAns = isBalanced(root ->left);
+        bool rightAns = isBalanced(root ->right);
+        
+        bool diff = abs(height(root ->left) - height(root ->right)) <=1;
+        
+        if(leftAns && rightAns && diff)
+            return true;
+        return false;
+        
+    }
+};
+
+
+Approch 2 - Optimise 
+"Here we Optimise the height by storing the value and in case of previous approch we repetedly calculatin height of each node"
+
+
+class Solution {
+public:
+    
+    
+        pair<int,bool> solve(TreeNode* root)
+        {
+            if(root == NULL)
+                return make_pair(0,true);
+            
+            pair<int,bool> leftAns = solve(root ->left);
+            pair<int,bool> rightAns = solve(root -> right);
+            
+            int leftHeight = leftAns.first;
+            int rightHeight = rightAns.first;
+            
+            bool leftBalanced = leftAns.second;
+            bool rightBalanced = rightAns.second;
+            
+            bool diff = abs(leftHeight - rightHeight) <= 1;
+            
+            
+            if(leftBalanced && rightBalanced && diff)
+            {
+                return make_pair(max(leftHeight, rightHeight) + 1, true);
+            }
+            else
+            {
+                return make_pair(max(leftHeight, rightHeight) + 1, false);
+            }
+            
+            
+        }
+        bool isBalanced(TreeNode* root)
+        {
+            
+            pair<int,bool> ans = solve(root);
+            
+            return ans.second;
+        }
+    
+};
