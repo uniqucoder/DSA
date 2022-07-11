@@ -48,6 +48,34 @@ class CircularQueue
        
     }
 
+    void dequeue()
+    {
+        //undervflow
+        if(front == -1)
+        {
+            cout<<"Queue underflow "<<endl;
+            return;
+        }
+        else if(front == rear)
+        {
+                front =-1;
+                rear = -1;
+        
+        }
+        else if(front == size -1)
+        {
+
+            front = 0;
+        }
+        else
+        {
+            arr[front]=-1;
+            front++;
+        }
+        
+    }
+
+
 
 };
 

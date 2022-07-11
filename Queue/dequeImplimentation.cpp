@@ -73,6 +73,21 @@ class Deque{
     }
 
 
+    //pushBack
+
+    void pushback(int element)
+    {
+        //for first element
+        if(front == -1 && rear == -1)
+        {
+            rear = front = 0;
+        }
+        else if(rear == size-1)
+        {
+            cout<<"deque full";
+        }
+    }
+
 
 
 
