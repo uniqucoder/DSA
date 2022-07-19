@@ -76,7 +76,6 @@ void lvlOrderTraversal(Node* root)
     
 
 }
-
 int position(vector<int>in,int key, int s, int e)
 {
     for(int i=s;i<=e;i++)
@@ -106,14 +105,92 @@ Node* buildTreeInorderPreorder(vector<int>in, vector<int>pre, int &preOrderIndex
 
     return root;
 }
+
+// optimise 
+Node* buildTreeInorderPreorder_1(vector<int>in, vector<int>pre, int &preOrderIndex,int inStart, int inEnd, map<int,int>&m)
+{
+    if(preOrderIndex >= pre.size() || inStart > inEnd)
+    {
+        return NULL;
+    }
+
+    //take first element of preorder as root node
+    
+    int element = pre[preOrderIndex++];
+    
+    Node* root = new Node(element);
+    int pos = m[element];
+    // cout<<"postion is "<<pos<<"For element "<<element<<endl;
+    
+    root->left = buildTreeInorderPreorder_1(in,pre,preOrderIndex,inStart,pos-1,m);
+    root->right = buildTreeInorderPreorder_1(in,pre,preOrderIndex,pos+1,inEnd,m);
+
+    return root;
+} 
+
+
+
+// optimise 
+Node* buildTreeInorderPostorder_1(vector<int>in, vector<int>post, int &postOrderIndex,int inStart, int inEnd, map<int,int>&m)
+{
+    if(postOrderIndex < 0 || inStart > inEnd)
+    {
+        return NULL;
+    }
+
+    //take first element of preorder as root node
+    
+    int element = post[postOrderIndex--];
+    
+    Node* root = new Node(element);
+    int pos = m[element];
+    // cout<<"postion is "<<pos<<"For element "<<element<<endl;
+
+    root->right = buildTreeInorderPostorder_1(in,post,postOrderIndex,pos+1,inEnd,m);
+    root->left = buildTreeInorderPostorder_1(in,post,postOrderIndex,inStart,pos-1,m);
+    
+
+    return root;
+} 
+ 
 int main()
 {
     // Node* root = buildTree();
 
-    vector<int>in={4,2,5,1,6,3,7};
-    vector<int>pre={1,2,4,5,3,6,7};
-    int index=0;
-    Node* root = buildTreeInorderPreorder(in,pre,index,0,in.size());
+
+//     [3,9,20,15,7]
+// [9,3,15,20,7]
+    // vector<int>in={4,2,5,1,6,3,7};
+    // vector<int>pre={1,2,4,5,3,6,7};
+    // vector<int>in={9,3,15,20,7};
+    // vector<int>pre={3,9,20,15,7};
+    // int index=0;
+    // Node* root = buildTreeInorderPreorder(in,pre,index,0,in.size());
+
+
+    //optimise
+    // int index1=0;
+    // map<int,int>m;
+    // for(int i=0;i<in.size();i++)
+    // {
+    //     m[in[i]]=i;
+    // }
+    // Node* root = buildTreeInorderPreorder_1(in,pre,index,0,pre.size(),m);
+
+
+    // optimise
+
+
+    vector<int>in={9,3,15,20,7};
+    vector<int>post={9,15,7,20,3};
+
+    int index = post.size()-1;
+    map<int,int>m;
+    for(int i=0;i<in.size();i++)
+    {
+        m[in[i]]=i;
+    }
+    Node* root = buildTreeInorderPostorder_1(in,post,index,0,post.size()-1,m);
 
     lvlOrderTraversal(root);
 }
