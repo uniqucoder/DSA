@@ -190,7 +190,7 @@ bool search(Node* root, int target)
 Node* maxValue(Node* root)
 {
     Node* temp = root;
-    while (temp->rigth != NULL)
+    while (temp->right != NULL)
     {
         temp = temp ->right;
     }
