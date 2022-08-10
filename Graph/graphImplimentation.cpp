@@ -1,3 +1,4 @@
+//adjustancy list
 //with out weight
 
 #include<bits/stdc++.h>
@@ -38,26 +39,45 @@ class Graph
         }
     }
 
-    void BFS(int src)
+
+
+    void BFS(int src, map<int,bool> &visited)
     {
         queue<int>q;
+        
         q.push(src);
+        visited[src] = true;
 
-        map<int,bool> visited;
-    
-
-        while (!q.empty())
+        while(!q.empty())
         {
-            int front = q.top();
-            cout<<front<<", ";
+            int front = q.front();
+            cout<<front<<" ";
             q.pop();
-            for(auto neigbours : adjList[front])
+
+            for(auto neibours : adjList[front])
             {
-                if(!visited[neigbours])
+                if(!visited[neibours])
                 {
-                    q.push(neigbours);
-                    visited[neigbours] = true;
+                    q.push(neibours);
+                    visited[neibours] = true;
+
                 }
+            }
+        }
+  
+    }
+
+    void DFS(int src, map<int,bool> &visited)
+    {
+        visited[src] = true;
+        cout<<src<<", ";
+
+        for(auto neighbour : adjList[src])
+        {
+            if(!visited[neighbour])
+            {
+                visited[neighbour] = true;
+                DFS(neighbour,visited);
             }
         }
     }
@@ -73,7 +93,7 @@ int main()
 
     g.addEdge(0,1,0);
     g.addEdge(1,2,0);
-    g.addEdge(1,3,0);
+   
     g.addEdge(2,3,0);
     g.addEdge(3,4,0);
     g.addEdge(2,4,0);
@@ -83,6 +103,32 @@ int main()
     g.printAdjList();
 
     cout<<endl;
+    map<int,bool> visited;
     cout<<"Printing BFS Traversal"<<endl;
-    g.BFS(0);
+    int n = 5;
+    for(int i=0;i<n;i++)
+    {
+        if(!visited[i])
+        {
+            g.BFS(i,visited);
+        }
+    }
+    cout<<endl;
+    cout<<"Printing the DFS Traversal"<<endl;
+
+    Graph<int>g2;
+    map<int,bool> visited2;
+    g2.addEdge(0,2,0);
+    g2.addEdge(2,3,0);
+    g2.addEdge(2,4,0);
+    g2.addEdge(3,2,0);
+    g2.addEdge(3,4,0);
+    g2.addEdge(3,1,0);
+
+
+    for(int i=0;i<n;i++)
+    {
+        if(!visited2[i])
+            g2.DFS(0,visited2);
+    }
 }
