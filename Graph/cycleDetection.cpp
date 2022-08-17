@@ -93,6 +93,32 @@ class Graph
         return false;
     }
 
+
+    bool isCyclicDirectedDFS(int src, map<int,bool> &visited, map<int,bool>&dfsvisited)
+    {
+        visited[src] = true;
+        dfsvisited[src] = true;
+
+        for(auto neighbour : adjList[src])
+        {
+            if(!visited[neighbour])
+            {
+                bool ans = isCyclicDirectedDFS(neighbour,visited,dfsvisited);
+
+                if(ans == true)
+                {
+                    return true;
+                }
+            }
+            else if( visited[src] == true && dfsvisited[src] == true)
+            {
+                return true;
+            }
+        }
+        dfsvisited[src] = false;
+        
+        return false;
+    }
 };
 
 
