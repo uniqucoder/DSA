@@ -42,7 +42,7 @@ int solveTab(int nthTerm, int a,int b,int c)
 {
     // create dp array
     vector<int> dp(nthTerm +1, INT_MIN);
-
+    
     dp[0] = 0;
 
     for(int n = 1; n<=nthTerm; n++)
@@ -52,8 +52,8 @@ int solveTab(int nthTerm, int a,int b,int c)
         int third = dp[n-c];
         dp[n] = 1 + max(first,max(second,third));
     }
-    cout<<dp[nthTerm];
-    cout<<endl;
+    // cout<<dp[nthTerm];
+    // cout<<endl;
     return dp[nthTerm];
 }
 

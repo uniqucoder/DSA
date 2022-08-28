@@ -1,21 +1,20 @@
-// Shortest path using BFS Algorithm
-
 #include<bits/stdc++.h>
 using namespace std;
 
 template<typename T>
-class Graph
-{
-    public:
-    map<T,list<T> > adjList;
+class Graph{
 
-    void addEdge(int u, int v, bool direction)
-    {
-        adjList[u].push_back(v);
+    public:
+
+    map<int,list<pair<int,int> > > adjList;
+
+    void addEdge(int u, int v, int wt, bool direction)
+    { 
+        adjList[u].push_back({v,wt});
 
         if(direction == 0)
         {
-            adjList[v].push_back(u);
+            adjList[v].push_back(make_pair(u,wt));
         }
     }
 
@@ -23,94 +22,149 @@ class Graph
     {
         for(auto i : adjList)
         {
-            cout<<i.first<<" => ";
+            cout<<i.first<< " => ";
 
             for(auto j : i.second)
             {
-                cout<<j<<" ,";
+                cout<<"("<<j.first<<","<<j.second<<") , ";
             }cout<<endl;
+
         }
     }
-    
-    vector<int> getShortestPath(int src, int dest, map<int,bool> &visited)
+
+    vector<int> dijkstra(int src,int n)
     {
-        vector<int>ans;
-        queue<int>q;
-        map<int,int> parent;
+        //Initial step : Create dist array
+        vector<int>dist(n+1,INT_MAX);
+        set<pair<int,int>> st;
 
-        //step 1: push source node to queue and update visited and parent datastructure for the same
+        //update dist of src = 0 and push into the set
 
-        q.push(src);
-        visited[src] = true;
-        parent[src] = -1;
+        dist[src] = 0;
+        st.insert(make_pair(0,src));
 
-        while(!q.empty())
+        // same like bfs
+        while(!st.empty())
         {
-            int front = q.front();
-            q.pop();
+            auto top = *(st.begin());
+            //remove from set
+            st.erase(st.begin());
 
-            for(auto neigh : adjList[front])
+            int nodeDistance = top.first;
+            int node = top.second;
+
+            //step2 : check nei
+
+            for(auto nei : adjList[node])
             {
-                if(!visited[neigh])
+                // dist updation
+                if(nodeDistance + nei.second < dist[nei.first])
                 {
-                    visited[neigh] = true;
-                    parent[neigh] = front;
-                    q.push(neigh);
+                    // remove old record;
+
+                    auto record = st.find(make_pair(dist[nei.first],nei.first));
+
+                    if(record != st.end())
+                    {
+                        st.erase(record);
+                    }
+                    //new distace
+                    dist[nei.first] = nodeDistance + nei.second;
+
+                    //push to set
+                    st.insert(make_pair(dist[nei.first],nei.first));
+                }
+
+            }
+
+        }
+        return dist;
+    }
+
+    vector<int> solve(int src, int n)
+    {
+        //initial step
+        vector<int>dist(n+1, INT_MAX);
+
+
+        set<pair<int,int> > st;
+
+        dist[src] = 0;
+        st.insert(make_pair(0,src));
+
+        //step1
+        while(!st.empty())
+        {
+            auto top = *(st.begin());
+
+            st.erase(st.begin());
+
+            int distanceNode = top.first;
+            int node = top.second;
+
+            for(auto nei : adjList[node])
+            {
+                if(distanceNode + nei.second < dist[nei.first] )
+                {
+
+                    auto record = st.find(make_pair(dist[nei.first],nei.first));
+                    
+                    if(record != st.end())
+                    {
+                        st.erase(record);
+                    }
+
+                    dist[nei.first] = distanceNode + nei.second;
+
+                    st.insert(make_pair(dist[nei.first],nei.first));
                 }
             }
+
         }
 
+        return dist;
 
-        // for(auto i : parent)
-        // {
-        //     cout<<i.first<<" "<<i.second<<endl;
-        // }
-
-        ans.push_back(dest);
-
-        while (parent[dest] != src)
-        {
-            ans.push_back(parent[dest]);
-            dest = parent[dest];
-        }
-        ans.push_back(src);
         
-        reverse(ans.begin(),ans.end());
-
-        return ans;
     }
+
 };
+
+
+
+
 
 int main()
 {
-    Graph<int> g;
+    Graph<int>g;
+    // g.addEdge(0,1,5,0);
+    // g.addEdge(0,2,8,0);
+    // g.addEdge(1,2,9,0);
+    // g.addEdge(3,1,2,0);
+    // g.addEdge(3,2,6,0);
 
-    g.addEdge(1,2,0);
-    g.addEdge(1,3,0);
-    g.addEdge(1,4,0);
-    g.addEdge(2,5,0);
-    g.addEdge(5,8,0);
-    g.addEdge(3,8,0);
-    g.addEdge(4,6,0);
-    g.addEdge(6,7,0);
-    g.addEdge(7,8,0);
-    
+    g.addEdge(0,1,2,0);
+    g.addEdge(0,2,3,0);
+    g.addEdge(0,3,6,0);
+    g.addEdge(1,3,3,0);
+    g.addEdge(2,3,2,0);
+    g.addEdge(3,4,4,0);
+    g.addEdge(3,5,2,0);
+    g.addEdge(4,5,4,0);
 
+
+
+
+
+
+    cout<<"Printinf AdjList"<<endl;
     g.printAdjList();
-
-
-    vector<int>ans;
-
-    int src = 1, dest = 8;
-    map<int,bool> visited;
-
-    ans = g.getShortestPath(src,dest, visited);
-
-    for(auto i: ans)
-    {
-        cout<<i<<" => ";
-    }
     cout<<endl;
 
 
+    vector<int> dist = g.solve(0,5);
+
+    for(auto i : dist)
+    {
+        cout<<i<<" ";
+    }cout<<endl;
 }
