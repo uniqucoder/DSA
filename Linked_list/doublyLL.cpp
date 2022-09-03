@@ -26,6 +26,7 @@ void insertAthead(Node* &head,int d)
     newNode -> next = head;
     head -> prev = newNode;
     head = newNode;
+    
 
 }
 
