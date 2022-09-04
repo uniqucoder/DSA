@@ -21,6 +21,11 @@ class Node
 
 void traverse(Node* &head)
 {
+    if(head == NULL)
+    {
+        cout<<"List is Empty "<<endl;
+        return;
+    }
     Node* temp = head;
 
     while (temp!=NULL)
@@ -97,6 +102,36 @@ void insertAtPosition(Node* &head, Node* &tail,int pos, int d)
 
     }
 }
+
+
+Node* reverse(Node* &head)
+{
+    if(head == NULL)
+        return NULL;
+    Node* curr = head;
+    Node* prev = NULL;
+
+    while(curr != NULL)
+    {
+        Node* forword = curr->next;
+        curr ->next = prev;
+        prev = curr;
+        curr = forword;
+    }
+
+    return prev;
+}
+
+Node* reverseRec(Node* &curr, Node* prev)
+{
+    if(curr == NULL)
+        return prev;
+
+    Node* next = curr ->next;
+    curr->next = prev;
+
+    return reverseRec(next, curr);
+}
 int main()
 {
  
@@ -104,23 +139,28 @@ int main()
     
     Node *head = first;
 
-    // insertHead(head,10);
-    // insertHead(head,9);
-    // insertHead(head,8);
-    // insertHead(head,7);
-    // insertHead(head,6);
+    insertHead(head,10);
+    insertHead(head,9);
+    insertHead(head,8);
+    insertHead(head,7);
+    insertHead(head,6);
 
+    // traverse(head);
+    // cout<<endl;
+    // Node* tail= first;
+    // insertAtTail(tail,14);
+
+    // insertAtPosition(head,tail,3,100);
+    // insertAtPosition(head,tail,4,200);
+
+    // insertAtTail(tail,500);
+    // traverse(head);
+    // cout<<endl;
     traverse(head);
-    cout<<endl;
-    Node* tail= first;
-    insertAtTail(tail,14);
-
-    insertAtPosition(head,tail,3,100);
-    insertAtPosition(head,tail,4,200);
-
-    insertAtTail(tail,500);
+    cout<<endl; 
+    head = reverseRec(head,NULL);
+    cout<<"reverse List "<<endl;
     traverse(head);
-
 
 
 
