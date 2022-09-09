@@ -103,37 +103,25 @@ Node* detectCycle(Node* head)
 bool deleteCycle(Node* head)
 {
     if(head == NULL)
-    {
-        return false;
-    }
-
+        return true;
+    
     Node* fast = detectCycle(head);
-    
-    if(fast == NULL)
-    {
-        return false;
-    }
-    
-    // find the begining of  loop
 
     Node* slow = head;
 
     while(slow != fast)
     {
-        slow = slow -> next;
-        fast = fast -> next;
+        slow = slow ->next;
+        fast = fast ->next;
     }
 
-    Node* beginingNode = slow;
+    Node* begining = slow;
 
-    Node* temp = beginingNode;
-
-    while(temp -> next != beginingNode)
+    while(fast ->next != begining)
     {
-        temp =  temp -> next;
+        fast = fast ->next;
     }
-
-    temp->next = NULL;
+    fast ->next = NULL;
 
     return true;
 }
