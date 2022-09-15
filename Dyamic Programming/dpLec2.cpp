@@ -107,6 +107,49 @@ int getCuts(int n, int a, int b ,int c)
 
 
 }
+int getCutsMem(int n, int a, int b ,int c, vector<int>&dp)
+{
+    //base case
+    if(n==0)
+        return 0;
+    
+    if(n < 0)
+        return INT_MIN;
+    
+    if(dp[n] != -1)
+    {
+        return dp[n];
+    }
+
+    int first = getCutsMem(n-a,a,b,c,dp);
+    int second = getCutsMem(n-b,a,b,c,dp);
+    int third = getCutsMem(n-c,a,b,c,dp);
+
+    return dp[n] = 1 + max(first,max(second,third));
+
+}
+
+// tabulation method
+
+int getCutstab(int nth, int a,int b, int c)
+{
+    // step 1 create Dp vector
+
+    vector<int> dp(nth+1,INT_MIN);
+    dp[0]= 0;
+
+    for(int n = nth -1 ;n >=0; n--)
+    {
+        int first = dp[n-a];
+        int second = dp[n-b];
+        int third = dp[n-c];
+
+        dp[n] = 1 + max(first,max(second,third));
+    }
+
+    return dp[nth];
+}
+
 int main()
 {
 
@@ -127,7 +170,11 @@ int main()
     int b =11;
     int c = 3;
 
-    cout<<"get maximum cuts are "<<getCuts(N,a,b,c)<<endl;
+
+    // vector<int>dp(N+1,-1);
+    // cout<<"get maximum cuts are "<<getCutsMem(N,a,b,c,dp)<<endl;
+
+    cout<<"Ans is => "<<getCutstab(N,a,b,c);
 
     return 0;
 }
