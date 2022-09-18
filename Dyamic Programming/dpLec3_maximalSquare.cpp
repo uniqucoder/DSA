@@ -26,7 +26,7 @@ int solve(vector<vector<int>>&matrix ,int i, int j, int &maxi)
 
 // rec + mem
 
-int solveMem(vector<vector<int>> &matrix, int i, int j, int maxi, vector<vector<int>>&dp)
+int solveMem(vector<vector<int>> &matrix, int i, int j, int &maxi, vector<vector<int>>&dp)
 {
     //base
     if(i>= matrix.size() || j>= matrix[0].size())
@@ -59,9 +59,9 @@ int solveTab(vector<vector<int>>&matrix,int n, int m, int &maxi)
     // create dp vector
     vector<vector<int>>dp(n+1,vector<int>(m+1,0));
 
-    for(int i = 0; i<n; i++)
+    for(int i = n-1; i>=0; i--)
     {
-        for(int j = 0; j<m; j++)
+        for(int j = m-1; j>=0; j--)
         {
             int right = dp[i][j+1];
             int diagonal = dp[i+1][j+1];
