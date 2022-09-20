@@ -56,7 +56,7 @@ int solveTab(string &str1, string &str2)
 {
     // create dp vector
     vector<vector<int>>dp(str1.length()+1, vector<int>(str2.length()+1,0));
-
+    vector<char> answer;
     for(int i=str1.length()-1; i>=0;i--)
     {
         for(int j= str2.length()-1; j>=0;j--)
@@ -66,6 +66,7 @@ int solveTab(string &str1, string &str2)
             if(str1[i] == str2[j])
             {
                 ans = 1 + dp[i+1][j+1];
+                answer.push_back(str1[i]);
             }   
             else
             {
@@ -76,6 +77,21 @@ int solveTab(string &str1, string &str2)
         
         }
     }
+    for(int i=0;i<dp.size()-1;i++)
+    {
+        for(int j=0;j<=dp[0].size()-1;j++)
+        {
+            cout<<dp[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+
+    cout<<"Longest Common subsequence string is "<<endl;
+      reverse(answer.begin(),answer.end());
+    for(auto i : answer)
+        cout<<i<<"";
+  
+    cout<<endl;
     return dp[0][0];
 }
 
@@ -113,13 +129,13 @@ int solveTabSO(string &str1, string &str2)
 
 int main()
 {
-    string str1 ="abcdabc";
-    string str2 = "bcbcda";
+    string str1 ="abc";
+    string str2 = "pbc";
     int n = str1.length();
     int m = str2.length();
     vector<vector<int>>dp(n,vector<int>(m,-1));
 
     // cout<<"Ans is "<<solveMem(str1,str2, 0,0,dp)<<endl;
-
-    cout<<"Ans Using tabulation SO Method "<<solveTabSO(str1,str2)<<endl;
+    cout<<solveTab(str1,str2);
+    // cout<<"Ans Using tabulation SO Method "<<solveTabSO(str1,str2)<<endl;
 }   
