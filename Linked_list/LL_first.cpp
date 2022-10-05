@@ -122,6 +122,18 @@ Node* reverse(Node* &head)
     return prev;
 }
 
+Node* revRecThreePointer(Node* curr, Node* prev)
+{
+    if(curr == NULL)
+        return prev;
+    Node* forword = curr->next;
+    curr ->next = prev;
+    
+    
+    return revRecThreePointer(forword,curr);
+}
+
+
 Node* reverseRec(Node* &curr, Node* prev)
 {
     if(curr == NULL)
@@ -158,7 +170,9 @@ int main()
     // cout<<endl;
     traverse(head);
     cout<<endl; 
-    head = reverseRec(head,NULL);
+    // head = reverseRec(head,NULL);
+
+    revRecThreePointer(head,NULL);
     cout<<"reverse List "<<endl;
     traverse(head);
 
